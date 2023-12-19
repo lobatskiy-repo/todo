@@ -5,6 +5,8 @@ import { TodoItem } from "../TodoItem/TodoItem";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTodo } from "../../store/selectore";
 import { removeTodo } from "../../store/action";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../utils/firebase";
 
 export const TodoLis = () => {
   const todos = useSelector(getAllTodo);
@@ -13,6 +15,10 @@ export const TodoLis = () => {
 
   const handleRemoveTodo = (todo: any): void => {
     dispatch(removeTodo(todo));
+    
+    console.log('todo',todo);
+    
+    deleteDoc(doc(db, "todos", todo.id));
     // message.warn("Todo removed!");
   };
 

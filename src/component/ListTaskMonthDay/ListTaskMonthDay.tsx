@@ -9,6 +9,8 @@ import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import uk from "dayjs/locale/uk";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../utils/firebase";
 
 dayjs.extend(localeData);
 dayjs.extend(localizedFormat);
@@ -25,6 +27,9 @@ export const ListTaskMonthDay = () => {
 
   const handleRemoveTodo = (todo: any): void => {
     dispatch(removeTodo(todo));
+    console.log('todo',todo);
+    
+    deleteDoc(doc(db, "todos", todo.id));
     // message.warn("Todo removed!");
   };
 

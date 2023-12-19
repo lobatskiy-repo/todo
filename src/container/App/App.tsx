@@ -11,9 +11,13 @@ export const App = () => {
 
   //@ts-ignore
   onSnapshot(collection(db, "todos"), (snapshot) => {
-    const listData = snapshot.docs.map((doc) => doc.data());
-    console.log("listData", listData);
-
+    const listData = snapshot.docs.map((doc) => {
+      return {
+        ...doc.data(),
+        id: doc.id,
+      };
+    });
+ 
     dispatch(addTodos(listData));
   });
 

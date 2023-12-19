@@ -21,14 +21,13 @@ export const TodoItem: React.FC<ITodoItemProps> = ({
   onTodoRemoval,
   onTodoToggle,
 }) => {
-  debugger;
+ 
   const createdTime = new Date(todo.time).toLocaleTimeString("pl-PL");
   const finishedDate = todo.data
     ? new Date(todo.data).toLocaleDateString("pl-PL")
     : "";
-  console.log("todo", todo);
-
-  debugger;
+ 
+ 
   return (
     <List.Item
       actions={[

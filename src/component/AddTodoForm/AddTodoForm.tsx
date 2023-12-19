@@ -27,18 +27,16 @@ export const AddTodoForm: React.FC<any> = () => {
   const dispatch = useDispatch();
 
   const handleFormSubmit = (todo: any): void => {
-    dispatch(addTodo(todo));
-    debugger;
     addDoc(collection(db, "todos"), {
-      id: uuidv4(),
       data: todo["data"].format(),
       completed: false,
       name: todo["name"],
       text: todo["text"],
       time: todo["time"].format(),
+    }).then((res) => {
+      dispatch(addTodo({ ...todo, id: res.id }));
+      message.success("Завдання додано!");
     });
-
-    message.success("Завдання додано!");
   };
 
   const onFinish = () => {
@@ -50,8 +48,6 @@ export const AddTodoForm: React.FC<any> = () => {
     };
 
     handleFormSubmit(data);
-
-    // form.resetFields();
   };
 
   const [open, setOpen] = useState(false);
