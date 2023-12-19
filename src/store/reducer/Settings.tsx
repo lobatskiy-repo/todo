@@ -31,11 +31,19 @@ const Settings = (state = initialState, action: any) => {
 
       if (state.todos.length > 0) {
         cloneTodos.push(newTodo);
-      }  
+      }
 
       return {
         ...state,
         todos: state.todos.length > 0 ? cloneTodos : [newTodo],
+      };
+    }
+    case TYPE_REDUCER.ADD_TODOS: {
+      const todos = action.payload;
+ debugger
+      return {
+        ...state,
+        todos: todos,
       };
     }
     case TYPE_REDUCER.REMOVE_TODO: {

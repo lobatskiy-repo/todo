@@ -27,9 +27,18 @@ export const CalendarApp = () => {
   const cellRender =
     (allobjectData: any) =>
     (data: any): any => {
+      let today = new Date(data);
+      console.log("today", today);
+      console.log("today", today.getMonth());
+
       let dey = data.date();
-      let moze = data.month();
-    
+      let moze = today.getMonth() + 1;
+      debugger;
+      console.log("moze", moze);
+      console.log("dey", dey);
+
+      console.log("allobjectData", allobjectData);
+
       if (allobjectData && allobjectData[moze] && allobjectData[moze][dey]) {
         return (
           <Badge count={allobjectData[moze][dey].length}>

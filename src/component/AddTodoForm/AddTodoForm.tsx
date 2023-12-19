@@ -17,6 +17,10 @@ import TextArea from "antd/es/input/TextArea";
 import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
 import { addTodo } from "../../store/action";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../utils/firebase";
+import { v4 as uuidv4 } from "uuid";
+import { debug } from "util";
 
 export const AddTodoForm: React.FC<any> = () => {
   const [form] = Form.useForm();
@@ -24,6 +28,16 @@ export const AddTodoForm: React.FC<any> = () => {
 
   const handleFormSubmit = (todo: any): void => {
     dispatch(addTodo(todo));
+    debugger;
+    addDoc(collection(db, "todos"), {
+      id: uuidv4(),
+      data: todo["data"].format(),
+      completed: false,
+      name: todo["name"],
+      text: todo["text"],
+      time: todo["time"].format(),
+    });
+
     message.success("Завдання додано!");
   };
 
@@ -87,7 +101,9 @@ export const AddTodoForm: React.FC<any> = () => {
           <Form.Item
             label={"Заголовок"}
             name={"name"}
-            rules={[{ required: true, message: "Це поле обов'язкове для заповнення" }]}
+            rules={[
+              { required: true, message: "Це поле обов'язкове для заповнення" },
+            ]}
           >
             <Input />
           </Form.Item>
@@ -97,7 +113,9 @@ export const AddTodoForm: React.FC<any> = () => {
           <Form.Item
             label={"Текст"}
             name={"text"}
-            rules={[{ required: true, message: "Це поле обов'язкове для заповнення" }]}
+            rules={[
+              { required: true, message: "Це поле обов'язкове для заповнення" },
+            ]}
           >
             <TextArea />
           </Form.Item>
@@ -107,7 +125,9 @@ export const AddTodoForm: React.FC<any> = () => {
           <Form.Item
             label={"День"}
             name={"data"}
-            rules={[{ required: true, message: "Це поле обов'язкове для заповнення" }]}
+            rules={[
+              { required: true, message: "Це поле обов'язкове для заповнення" },
+            ]}
           >
             <DatePicker placeholder="Ведіть дату" />
           </Form.Item>
@@ -117,7 +137,9 @@ export const AddTodoForm: React.FC<any> = () => {
           <Form.Item
             label={"Час"}
             name={"time"}
-            rules={[{ required: true, message: "Це поле обов'язкове для заповнення" }]}
+            rules={[
+              { required: true, message: "Це поле обов'язкове для заповнення" },
+            ]}
           >
             <TimePicker />
           </Form.Item>
