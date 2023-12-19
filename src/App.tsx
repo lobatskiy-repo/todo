@@ -6,20 +6,20 @@ import store from "./store/store";
 
 import ukUA from "antd/lib/locale/uk_UA"; // Імпортуємо українську локалізацію
  
-import { HashRouter } from "react-router-dom"; 
+import { HashRouter,BrowserRouter } from "react-router-dom"; 
 export const AppPage = () => {
   
  
 
   return (
     <div>
-      <HashRouter>
+      <BrowserRouter>
         <ConfigProvider locale={ukUA}>
           <Provider store={store}>
             <App />
           </Provider>
         </ConfigProvider>
-      </HashRouter>
+      </BrowserRouter>
     </div>
   );
 };
