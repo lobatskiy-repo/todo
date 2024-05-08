@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import {
   EditOutlined,
   UnorderedListOutlined,
+  ProfileOutlined,
+  FundOutlined,
   CalendarOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
@@ -24,6 +26,16 @@ const items: MenuProps["items"] = [
     label: "Календар",
     key: "calendar",
     icon: <CalendarOutlined />,
+  },
+  {
+    label: "Hотатки",
+    key: "notes",
+    icon: <ProfileOutlined />,
+  },
+  {
+    label: "День",
+    key: ROUTES.schulder,
+    icon: <FundOutlined />,
   },
 ];
 
