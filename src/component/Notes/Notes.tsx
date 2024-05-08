@@ -11,7 +11,8 @@ export const Notes: React.FC<NotesProps> = (props: NotesProps) => {
       <Card
         style={{
           maxHeight: "calc(100vh - 170px)",
-          overflow: "auto",
+         
+          position:'relative'
         }}
         title="Hотатки"
       >
