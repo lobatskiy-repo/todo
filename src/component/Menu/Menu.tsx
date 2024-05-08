@@ -34,7 +34,7 @@ const items: MenuProps["items"] = [
   },
   {
     label: "День",
-    key: ROUTES.schulder,
+    key: "schulder",
     icon: <FundOutlined />,
   },
 ];

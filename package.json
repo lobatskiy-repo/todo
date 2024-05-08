@@ -20,6 +20,7 @@
     "@types/react": "^18.2.7",
     "@types/react-dom": "^18.2.4",
     "antd": "^5.5.2",
+    "caniuse-lite": "^1.0.30001616",
     "dayjs": "^1.11.7",
     "editorjs-toggle-block": "^0.3.16",
     "firebase": "^10.7.1",
