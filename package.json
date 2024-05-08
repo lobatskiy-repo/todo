@@ -25,6 +25,7 @@
     "editorjs-toggle-block": "^0.3.16",
     "firebase": "^10.7.1",
     "lodash": "^4.17.21",
+    "moment": "^2.30.1",
     "react": "^18.2.0",
     "react-circular-progressbar": "^2.1.0",
     "react-dom": "^18.2.0",

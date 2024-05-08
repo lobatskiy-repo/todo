@@ -21,31 +21,35 @@ export const TodoItem: React.FC<ITodoItemProps> = ({
   onTodoRemoval,
   onTodoToggle,
 }) => {
- 
-  const createdTime = new Date(todo.time).toLocaleTimeString("pl-PL");
-  const finishedDate = todo.data
-    ? new Date(todo.data).toLocaleDateString("pl-PL")
-    : "";
- 
- 
+  let endTime = undefined;
+  let startTime = undefined;
+  if (todo.endTime) {
+    endTime = new Date(todo.endTime).toLocaleTimeString("pl-PL", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    // Форматування часу за новими полями
+    startTime = new Date(todo.startTime).toLocaleTimeString("pl-PL", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
+
+  const finishedDate = new Date(todo.data).toLocaleDateString("pl-PL");
+
+  // Кольори для пріоритету
+  const priorityColor: any = {
+    low: "green",
+    medium: "orange",
+    high: "red",
+  };
+
   return (
     <List.Item
       actions={[
-        // <Tooltip
-        //   title={todo.completed ? "Mark as uncompleted" : "Mark as completed"}
-        // >
-        //   {/* <Switch
-        //     checkedChildren={<CheckOutlined />}
-        //     unCheckedChildren={<CloseOutlined />}
-        //     onChange={() => onTodoToggle(todo)}
-        //     defaultChecked={todo.completed}
-        //   /> */}
-        // </Tooltip>,
         <Popconfirm
           title="Are you sure you want to delete?"
-          onConfirm={() => {
-            onTodoRemoval(todo);
-          }}
+          onConfirm={() => onTodoRemoval(todo)}
         >
           <Button className="remove-todo-button" type="primary" danger>
             X
@@ -56,17 +60,22 @@ export const TodoItem: React.FC<ITodoItemProps> = ({
       key={todo.id}
     >
       <div className="todo-item">
-        <div className="">
-          <Typography.Title level={3} style={{ margin: 0 }}>
-            {todo.name}
-          </Typography.Title>
-          <Typography.Paragraph style={{ margin: 0 }}>
-            {todo.text}
-          </Typography.Paragraph>
-          {todo.time && todo.data && (
-            <Tag color="purple" className="todo-tag">
-              {`Дата: ${finishedDate} / ${createdTime}`}
+        <Typography.Title level={3} style={{ margin: 0 }}>
+          {todo.name}
+        </Typography.Title>
+        <Typography.Paragraph style={{ margin: 0 }}>
+          {todo.text}
+        </Typography.Paragraph>
+        <div style={{ marginTop: 8 }}>
+          {todo.priority && (
+            <Tag color={priorityColor[todo.priority]}>
+              {todo.priority.toUpperCase()}
             </Tag>
+          )}
+
+          <Tag color="purple">{`Дата: ${finishedDate}`}</Tag>
+          {startTime && (
+            <Tag color="blue">{`Час: ${startTime} - ${endTime}`}</Tag>
           )}
         </div>
       </div>

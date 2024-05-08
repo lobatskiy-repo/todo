@@ -43,6 +43,11 @@ const items: MenuProps["items"] = [
     key: "timer",
     icon: <FieldTimeOutlined />,
   },
+  {
+    label: "Звички",
+    key: "habit",
+    icon: <FundOutlined />,
+  },
 ];
 
 export const MainMenu: React.FC = () => {

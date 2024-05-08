@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Form,
   Row,
@@ -9,10 +9,11 @@ import {
   TimePicker,
   Modal,
   message,
+  Select,
 } from "antd";
 import { PlusCircleFilled } from "@ant-design/icons";
 
-import "./styles.less";
+import "./styles.css";
 import TextArea from "antd/es/input/TextArea";
 import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
@@ -25,6 +26,14 @@ import { debug } from "util";
 export const AddTodoForm: React.FC<any> = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
+  const [priorityColor, setPriorityColor] = useState("orange"); // Встановлення за замовчуванням середньої пріоритетності (оранжевий)
+
+  useEffect(() => {
+    // Встановлення за замовчуванням середньої пріоритетності
+    form.setFieldsValue({
+      priority: "medium",
+    });
+  }, []);
 
   const handleFormSubmit = (todo: any): void => {
     addDoc(collection(db, "todos"), {
@@ -32,7 +41,9 @@ export const AddTodoForm: React.FC<any> = () => {
       completed: false,
       name: todo["name"],
       text: todo["text"],
-      time: todo["time"].format(),
+      startTime: todo["startTime"]?.format(),
+      endTime: todo["endTime"]?.format(),
+      priority: todo["priority"],
     }).then((res) => {
       dispatch(addTodo({ ...todo, id: res.id }));
       message.success("Завдання додано!");
@@ -45,6 +56,9 @@ export const AddTodoForm: React.FC<any> = () => {
       text: form.getFieldValue("text"),
       data: form.getFieldValue("data"),
       time: form.getFieldValue("time"),
+      startTime: form.getFieldValue("startTime"),
+      endTime: form.getFieldValue("endTime"),
+      priority: form.getFieldValue("priority"),
     };
 
     handleFormSubmit(data);
@@ -70,6 +84,15 @@ export const AddTodoForm: React.FC<any> = () => {
   const handleCancel = () => {
     console.log("Натиснув кнопку скасування");
     setOpen(false);
+  };
+
+  const handlePriorityChange = (value: string) => {
+    const priorityClasses: any = {
+      low: "priority-low",
+      medium: "priority-medium",
+      high: "priority-high",
+    };
+    setPriorityColor(priorityClasses[value]);
   };
 
   return (
@@ -129,7 +152,7 @@ export const AddTodoForm: React.FC<any> = () => {
           </Form.Item>
         </Col>
 
-        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+        {/* <Col xs={24} sm={24} md={24} lg={24} xl={24}>
           <Form.Item
             label={"Час"}
             name={"time"}
@@ -138,6 +161,58 @@ export const AddTodoForm: React.FC<any> = () => {
             ]}
           >
             <TimePicker />
+          </Form.Item>
+        </Col> */}
+        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+          <Form.Item
+            label={"Час початку"}
+            name={"startTime"}
+            rules={[{ required: true, message: "Вкажіть час початку" }]}
+          >
+            <TimePicker
+              use12Hours
+              format="h:mm a"
+              onChange={(time) => {
+                // Встановіть час закінчення на 1 годину після вибору часу початку
+                const endTime = time && time.clone().add(1, "hour");
+                form.setFieldsValue({ endTime });
+              }}
+            />
+          </Form.Item>
+        </Col>
+        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+          <Form.Item
+            label={"Час закінчення"}
+            name={"endTime"}
+            rules={[{ required: true, message: "Вкажіть час закінчення" }]}
+          >
+            <TimePicker use12Hours format="h:mm a" />
+          </Form.Item>
+        </Col>
+
+        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+          <Form.Item
+            label={"Пріоритетність"}
+            name={"priority"}
+            rules={[
+              { required: true, message: "Оберіть пріоритетність завдання" },
+            ]}
+          >
+            <Select
+              placeholder="Оберіть пріоритет"
+              onChange={handlePriorityChange}
+              className={priorityColor}
+            >
+              <Select.Option value="low" style={{ color: "green" }}>
+                Низька
+              </Select.Option>
+              <Select.Option value="medium" style={{ color: "orange" }}>
+                Середня
+              </Select.Option>
+              <Select.Option value="high" style={{ color: "red" }}>
+                Висока
+              </Select.Option>
+            </Select>
           </Form.Item>
         </Col>
 

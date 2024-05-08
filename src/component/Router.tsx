@@ -12,12 +12,14 @@ import { ListTaskMonthDay } from "./ListTaskMonthDay/ListTaskMonthDay";
 import { Notes } from "./Notes/Notes";
 import { Schedule } from "./Schedule/Schedule";
 import { TimerPage } from "./TimerPage/TimerPage";
+import { HabitTracker } from "./HabitTracker/HabitTracker";
 
 export const ROUTES = {
   home: "/",
   calendar: "/calendar",
   notes: "/notes",
   timer: "/timer",
+  habit: "/habit",
   schulder: "/schulder",
   calendar_month: "/calendar/:month/",
   calendar_month_day: "/calendar/:month/:day",
@@ -55,6 +57,7 @@ export const Router = () => {
       <Route path={ROUTES.notes} element={<Notes />} />
       <Route path={ROUTES.schulder} element={<Schedule />} />
       <Route path={ROUTES.timer} element={<TimerPage />} />
+      <Route path={ROUTES.habit} element={<HabitTracker />} />
       <Route path={ROUTES.home} element={<TodoLis />} />
     </Routes>
   );

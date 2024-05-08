@@ -1,0 +1,55 @@
+.todo-form {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 5px;
+  .icon {
+    color: "rgba(0,0,0,.25)";
+  }
+}
+
+.todo-form-date-picker {
+  .ant-picker {
+    width: 100%;
+  }
+}
+/* styles.less */
+.priority-low {
+  color: green !important;
+}
+
+.priority-medium {
+  color: orange !important;
+}
+.priority-medium {
+  .ant-select-selector {
+    .ant-select-selection-item {
+      color: orange !important;
+    }
+  }
+}
+.priority-high {
+  .ant-select-selector {
+    .ant-select-selection-item {
+      color: red !important;
+    }
+  }
+}
+.priority-low {
+  .ant-select-selector {
+    .ant-select-selection-item {
+      color: green !important;
+    }
+  }
+}
+
+.priority-high {
+  color: red !important;
+}
+
+.priority-medium {
+  :global {
+    .ant-select-selector {
+      background-color: red;
+    }
+  }
+}

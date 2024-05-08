@@ -6,6 +6,7 @@ export const getAllTodo = (state: any) => {
 };
 export const getAllTodoCalendar = (state: any) => {
   let allTodo = cloneDeep(getAllTodo(state));
+  debugger
   if (allTodo.length < 1) return {};
 
   return transformObject(allTodo);
