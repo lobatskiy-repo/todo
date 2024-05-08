@@ -4,6 +4,7 @@ import {
   UnorderedListOutlined,
   ProfileOutlined,
   FundOutlined,
+  FieldTimeOutlined,
   CalendarOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
@@ -36,6 +37,11 @@ const items: MenuProps["items"] = [
     label: "День",
     key: "schulder",
     icon: <FundOutlined />,
+  },
+  {
+    label: "Таймер",
+    key: "timer",
+    icon: <FieldTimeOutlined />,
   },
 ];
 
